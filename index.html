@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>PEPL ERP</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#E85D2F">
@@ -10,21 +10,31 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
       background: #ffffff;
+      overflow: hidden;
     }
     iframe {
-      width: 100%;
-      height: 100vh;
       border: none;
       display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
     }
   </style>
 </head>
 <body>
-  <iframe src="https://script.google.com/macros/s/AKfycbw9ClDF-cl6JF0GexFN91hu1wZzmAfeoqqNh_0QE391ewBVxRGwWRdfiLWv9h9wdg1o/exec"></iframe>
+  <iframe id="erp-frame" src="https://script.google.com/macros/s/AKfycbw9ClDF-cl6JF0GexFN91hu1wZzmAfeoqqNh_0QE391ewBVxRGwWRdfiLWv9h9wdg1o/exec"></iframe>
 
   <script>
+    function sizeIframe() {
+      var frame = document.getElementById('erp-frame');
+      frame.style.width = window.innerWidth + 'px';
+      frame.style.height = window.innerHeight + 'px';
+    }
+    window.addEventListener('resize', sizeIframe);
+    window.addEventListener('orientationchange', sizeIframe);
+    sizeIframe();
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
     }
